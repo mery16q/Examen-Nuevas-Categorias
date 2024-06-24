@@ -1,4 +1,4 @@
-import { Restaurant, Order } from '../models/models.js'
+import { Restaurant, Order, RestaurantCategory } from '../models/models.js'
 
 const checkRestaurantOwnership = async (req, res, next) => {
   try {
@@ -25,4 +25,19 @@ const restaurantHasNoOrders = async (req, res, next) => {
   }
 }
 
-export { checkRestaurantOwnership, restaurantHasNoOrders }
+const checkCategoryNotExits = async (req, res, next) => {
+  const error = 'You can not create a category that already exists'
+  try {
+    const restaurantCategories = await RestaurantCategory.findAll()
+    for (const r of restaurantCategories) {
+      if (r.name === req.body.name) {
+        return res.status(403).send(error)
+      }
+    }
+    return next()
+  } catch (err) {
+    return res.status(500).send(error)
+  }
+}
+
+export { checkRestaurantOwnership, restaurantHasNoOrders, checkCategoryNotExits }
