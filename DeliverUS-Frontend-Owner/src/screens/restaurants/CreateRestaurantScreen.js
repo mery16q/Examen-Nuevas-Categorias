@@ -14,7 +14,7 @@ import { showMessage } from 'react-native-flash-message'
 import { ErrorMessage, Formik } from 'formik'
 import TextError from '../../components/TextError'
 
-export default function CreateRestaurantScreen ({ navigation }) {
+export default function CreateRestaurantScreen ({ navigation, route }) {
   const [open, setOpen] = useState(false)
   const [restaurantCategories, setRestaurantCategories] = useState([])
   const [backendErrors, setBackendErrors] = useState()
